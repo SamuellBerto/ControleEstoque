@@ -1,8 +1,10 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
-    public static void main (String[] args) {
+    public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        ArrayList<Produto> estoque = new ArrayList<>();
         int opcao;
 
         do {
@@ -15,18 +17,39 @@ public class Main {
             System.out.print("Escolha uma opção: ");
 
             opcao = scanner.nextInt();
+            scanner.nextLine(); // limpa o "enter" que sobrou no buffer
 
             switch (opcao) {
-                case 1 -> System.out.println("Cadastrar produto");
-                case 2 -> System.out.println("Listar produtos");
-                case 3 -> System.out.println("Atualizar quantidade");
-                case 4 -> System.out.println("Calcular valor total do estoque");
+                case 1 -> {
+                    System.out.print("Nome do produto: ");
+                    String nome = scanner.nextLine();
+                    System.out.print("Quantidade: ");
+                    int quantidade = scanner.nextInt();
+                    System.out.print("Preço unitário: ");
+                    double preco = scanner.nextDouble();
+
+                    estoque.add(new Produto(nome, quantidade, preco));
+                    System.out.println("Produto cadastrado com sucesso!");
+                }
+                case 2 -> {
+                    System.out.println("\n--- Produtos cadastrados ---");
+                    for (Produto p : estoque) {
+                        System.out.println(p.getNome() + " | Qtd: " + p.getQuantidade() + " | Preço: R$" + p.getPreco());
+                    }
+                }
+                case 3 -> System.out.println("Você escolheu atualizar quantidade.");
+                case 4 -> {
+                    double total = 0;
+                    for (Produto p : estoque) {
+                        total += p.getValorTotal();
+                    }
+                    System.out.println("Valor total do estoque: R$" + total);
+                }
                 case 0 -> System.out.println("Saindo...");
                 default -> System.out.println("Opção inválida!");
             }
         } while (opcao != 0);
 
         scanner.close();
-
     }
 }
