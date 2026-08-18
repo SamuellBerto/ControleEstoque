@@ -39,11 +39,14 @@ public class Main {
                 }
                 case 3 -> System.out.println("Você escolheu atualizar quantidade.");
                 case 4 -> {
+                    System.out.println("\n--- Valor total por Produto ---");
                     double total = 0;
                     for (Produto p : estoque) {
-                        total += p.getValorTotal();
+                        double valorProduto = p.getValorTotal();
+                        System.out.println(p.getNome () + " : " + p.getQuantidade() + " x R$" + p.getPreco () + " = R$" + valorProduto);
+                        total += valorProduto;
                     }
-                    System.out.println("Valor total do estoque: R$" + total);
+                    System.out.println("\n Valor Total do Estoque: R$" + total);
                 }
                 case 0 -> System.out.println("Saindo...");
                 default -> System.out.println("Opção inválida!");
