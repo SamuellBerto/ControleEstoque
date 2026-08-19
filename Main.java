@@ -1,8 +1,16 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 
 public class Main {
     public static void main(String[] args) {
+        Connection conexao = ConexaoBanco.conectar();
+        if (conexao != null) {
+            System.out.println ("Conectado ao banco com sucesso!");
+        }
         Scanner scanner = new Scanner(System.in);
         ArrayList<Produto> estoque = new ArrayList<>();
         int opcao;
