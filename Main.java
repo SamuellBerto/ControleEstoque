@@ -7,10 +7,8 @@ import java.sql.SQLException;
 
 public class Main {
     public static void main(String[] args) {
-        Connection conexao = ConexaoBanco.conectar();
-        if (conexao != null) {
-            System.out.println ("Conectado ao banco com sucesso!");
-        }
+        ConexaoBanco.criarTabela();
+        
         Scanner scanner = new Scanner(System.in);
         ArrayList<Produto> estoque = new ArrayList<>();
         int opcao;
