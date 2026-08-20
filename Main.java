@@ -8,7 +8,7 @@ import java.sql.SQLException;
 public class Main {
     public static void main(String[] args) {
         ConexaoBanco.criarTabela();
-        
+
         Scanner scanner = new Scanner(System.in);
         ArrayList<Produto> estoque = new ArrayList<>();
         int opcao;
@@ -33,9 +33,11 @@ public class Main {
                     int quantidade = scanner.nextInt();
                     System.out.print("Preço unitário: ");
                     double preco = scanner.nextDouble();
+                    scanner.nextLine();
 
-                    estoque.add(new Produto(nome, quantidade, preco));
-                    System.out.println("Produto cadastrado com sucesso!");
+                    Produto novoProduto = new Produto(nome, quantidade, preco);
+                    ProdutoDAO.cadastrar(novoProduto);
+                
                 }
                 case 2 -> {
                     System.out.println("\n--- Produtos cadastrados ---");
