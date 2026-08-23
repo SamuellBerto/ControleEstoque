@@ -21,4 +21,26 @@ public class ProdutoDAO {
         }
 
     }
+
+    public static java.util.ArrayList<Produto> listar() {
+        java.util.ArrayList<Produto> produtos = new java.util.ArrayList<>();
+        String sql = "SELECT * FROM produtos";
+
+        try (Connection conexao = ConexaoBanco.conectar();
+             PreparedStatement stmt = conexao.prepareStatement(sql);
+             java.sql.ResultSet rs = stmt.executeQuery()) {
+                
+            while (rs.next()) {
+                String nome = rs.getString("nome");
+                int quantidade = rs.getInt("quantidade");
+                double preco = rs.getDouble("preco");
+
+                produtos.add(new Produto(nome, quantidade, preco));
+            }
+        } catch (SQLException e) {
+            System.out.println("Erro ao listar produtos: " + e.getMessage());
+        }
+
+        return produtos;
+    }
 }

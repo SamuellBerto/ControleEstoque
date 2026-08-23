@@ -40,8 +40,9 @@ public class Main {
                 
                 }
                 case 2 -> {
-                    System.out.println("\n--- Produtos cadastrados ---");
-                    for (Produto p : estoque) {
+                    System.out.println("\n--- Produtos cadastradors ---");
+                    ArrayList<Produto> produtosDoBanco = ProdutoDAO.listar();
+                    for (Produto p : produtosDoBanco) {
                         System.out.println(p.getNome() + " | Qtd: " + p.getQuantidade() + " | Preço: R$" + p.getPreco());
                     }
                 }
