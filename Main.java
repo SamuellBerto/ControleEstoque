@@ -39,11 +39,11 @@ public class Main {
 
                 }
                 case 2 -> {
-                    System.out.println("\n--- Produtos cadastradors ---");
+                    System.out.println("\n--- Produtos cadastrados ---");
                     ArrayList<Produto> produtosDoBanco = ProdutoDAO.listar();
                     for (Produto p : produtosDoBanco) {
-                        System.out
-                                .println(p.getNome() + " | Qtd: " + p.getQuantidade() + " | Preço: R$" + p.getPreco());
+                        System.out.printf("%s | Qtd: %d | Preço: R$%.2f%n",
+                                p.getNome(), p.getQuantidade(), p.getPreco());
                     }
                 }
                 case 3 -> {
@@ -63,11 +63,11 @@ public class Main {
                     double total = 0;
                     for (Produto p : produtosDoBanco) {
                         double valorProduto = p.getValorTotal();
-                        System.out.println(p.getNome() + " : " + p.getQuantidade() + " x R$" + p.getPreco() + " = R$"
-                                + valorProduto);
+                        System.out.printf("%s : %d x R$%.2f = R$%.2f%n",
+                                p.getNome(), p.getQuantidade(), p.getPreco(), valorProduto);
                         total += valorProduto;
                     }
-                    System.out.println("\n Valor Total do Estoque: R$" + total);
+                    System.out.printf("%n Valor Total do Estoque: R$%.2f%n", total);
                 }
                 case 0 -> System.out.println("Saindo...");
                 default -> System.out.println("Opção inválida!");
