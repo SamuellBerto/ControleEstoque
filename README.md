@@ -10,13 +10,17 @@ Sistema de linha de comando (CLI) para gerenciar produtos em estoque, permitindo
 
 - [x] Menu interativo no terminal
 - [x] Classe `Produto` (nome, quantidade, preço)
-- [x] Cadastro de produtos (em memória)
-- [x] Listagem de produtos
-- [x] Cálculo de valor total do estoque (por produto e geral)
-- [x] Conexão com banco SQLite e criação automática da tabela
-- [ ] Persistência de dados via SQL (INSERT, SELECT, UPDATE) *(em desenvolvimento)*
-- [ ] Atualização de quantidade
+- [x] Persistência de dados com banco SQLite
+- [x] Cadastro de produtos (via SQL - INSERT)
+- [x] Listagem de produtos (via SQL - SELECT)
+- [x] Atualização de quantidade e preço (via SQL - UPDATE)
+- [x] Cálculo de valor total do estoque, formatado em decimal
 - [ ] Exclusão de produtos
+- [ ] Busca de produto por nome
+
+## 📸 Demonstração
+
+![Menu do sistema](./imagens/ControleEstoque-calculo+lista+1.png)
 
 ## 🛠️ Tecnologias
 
