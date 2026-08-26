@@ -9,7 +9,7 @@ public class Main {
         ConexaoBanco.criarTabela();
 
         Scanner scanner = new Scanner(System.in);
-        ArrayList<Produto> estoque = new ArrayList<>();
+
         int opcao;
 
         do {
@@ -59,8 +59,9 @@ public class Main {
                 }
                 case 4 -> {
                     System.out.println("\n--- Valor total por Produto ---");
+                    ArrayList<Produto> produtosDoBanco = ProdutoDAO.listar();
                     double total = 0;
-                    for (Produto p : estoque) {
+                    for (Produto p : produtosDoBanco) {
                         double valorProduto = p.getValorTotal();
                         System.out.println(p.getNome() + " : " + p.getQuantidade() + " x R$" + p.getPreco() + " = R$"
                                 + valorProduto);
