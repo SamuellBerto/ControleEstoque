@@ -18,6 +18,7 @@ public class Main {
             System.out.println("2 - Listar produtos");
             System.out.println("3 - Atualizar produto (quantidade e preço)");
             System.out.println("4 - Calcular valor total do estoque");
+            System.out.println("5 - Excluir produto");
             System.out.println("0 - Sair");
             System.out.print("Escolha uma opção: ");
 
@@ -68,6 +69,11 @@ public class Main {
                         total += valorProduto;
                     }
                     System.out.printf("%n Valor Total do Estoque: R$%.2f%n", total);
+                }
+                case 5 -> {
+                    System.out.print("Nome do produto a excluir: ");
+                    String nomeExcluir = scanner.nextLine();
+                    ProdutoDAO.excluir(nomeExcluir);
                 }
                 case 0 -> System.out.println("Saindo...");
                 default -> System.out.println("Opção inválida!");
