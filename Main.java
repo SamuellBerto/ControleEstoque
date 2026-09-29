@@ -87,14 +87,48 @@ public class Main {
                 }
                 case 3 -> {
                     System.out.print("Nome do produto a atualizar: ");
-                    String nomeProduto = scanner.nextLine();
-                    System.out.print("Nova quantidade: ");
-                    int novaQuantidade = scanner.nextInt();
-                    System.out.print("Novo preço: ");
-                    double novoPreco = scanner.nextDouble();
+                    String nomeProduto = scanner.nextLine().trim();
+
+                    int novaQuantidade = -1;
+                    boolean quantidadeValida = false;
+                    while (!quantidadeValida) {
+                        System.out.print("Nova quantidade:");
+                        if (scanner.hasNextInt()) {
+                            novaQuantidade = scanner.nextInt();
+                            if (novaQuantidade >= 0) {
+                                quantidadeValida = true;
+                            } else {
+                                System.out.println("Quantidade não pode ser negativa. Tente novamente.");
+                            }
+                        } else {
+                            System.out.println("Digite um número inteiro válido.");
+                            scanner.next();
+                        }
+
+                    }
                     scanner.nextLine();
+                    
+                    double novoPreco = -1;
+                    boolean precoValido = false;
+                    while (!precoValido) {
+                        System.out.print ("Novo preço: ");
+                        String precoTexto = scanner.nextLine() .trim().replace(",", ".");
+                        try {
+                            novoPreco = Double.parseDouble(precoTexto);
+                            if (novoPreco >= 0) {
+                                precoValido = true;
+                            } else {
+                                System.out.println("Preço não pode ser negativo. Tente novamente.");                         
+                            }
+                        } catch (NumberFormatException e) {
+                            System.out.println("Digite um valor numérico válido. ");
+
+                        }
+
+                    }
 
                     ProdutoDAO.atualizarProduto(nomeProduto, novaQuantidade, novoPreco);
+                    
                 }
                 case 4 -> {
                     System.out.println("\n--- Valor total por Produto ---");
