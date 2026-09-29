@@ -7,27 +7,29 @@ import java.util.ArrayList;
 
 public class ProducaoDAO {
 
-    public static void salvarProducao(String nomeProduto, ArrayList<ItemProducao> itens, String data) {
+    public static void salvarProducao(String nomeProduto, ArrayList<ItemProducao> itens, int quantidadeProduzida, String data) {
         double custoTotal = 0;
         for (ItemProducao item : itens) {
             custoTotal += item.getValor();
-
         }
-        String sqlProducao = "INSERT INTO producoes (nome_produto, custo_total, data) VALUES (?, ?, ?)";
+
+        double custoPorUnidade = custoTotal / quantidadeProduzida;
+
+        String sqlProducao = "INSERT INTO producoes (nome_produto, quantidade_produzida, custo_total, data) VALUES (?, ?, ?, ?)";
 
         try (Connection conexao = ConexaoBanco.conectar();
-            PreparedStatement stmt= conexao.prepareStatement(sqlProducao, Statement.RETURN_GENERATED_KEYS)) {
+            PreparedStatement stmt = conexao.prepareStatement(sqlProducao, Statement.RETURN_GENERATED_KEYS)) {
 
                 stmt.setString(1, nomeProduto);
-                stmt.setDouble(2, custoTotal);
-                stmt.setString(3, data);
+                stmt.setInt(2, quantidadeProduzida);
+                stmt.setDouble(3, custoTotal);
+                stmt.setString(4, data);
                 stmt.executeUpdate();
 
                 ResultSet chavesGeradas = stmt.getGeneratedKeys();
                 int producaoId = 0;
                 if (chavesGeradas.next()) {
                     producaoId = chavesGeradas.getInt(1);
-
                 }
 
                 String sqlItem = "INSERT INTO itens_producao (producao_id, nome_item, valor) VALUES (?, ?, ?)";
@@ -40,11 +42,13 @@ public class ProducaoDAO {
                     }
                 }
 
-                System.out.println("Produção salva com sucesso! Custo total: R$ " + String.format("%.2f" , custoTotal));
+                System.out.printf("%nProdução salva com sucesso!%n");
+                System.out.printf("Custo total da produção: R$%.2f%n", custoTotal);
+                System.out.printf("Você produziu %d unidade(s) de \"%s\".%n", quantidadeProduzida, nomeProduto);
+                System.out.printf("Custo por unidade: R$%.2f%n", custoPorUnidade);
 
         } catch (SQLException e) {
             System.out.println("Erro ao salvar produção: " + e.getMessage());
         }
     }
-        
 }

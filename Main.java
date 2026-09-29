@@ -19,6 +19,7 @@ public class Main {
             System.out.println("3 - Atualizar produto (quantidade e preço)");
             System.out.println("4 - Calcular valor total do estoque");
             System.out.println("5 - Excluir produto");
+            System.out.println("6 - Calcular custo de produção");
             System.out.println("0 - Sair");
             System.out.print("Escolha uma opção: ");
 
@@ -146,6 +147,65 @@ public class Main {
                     System.out.print("Nome do produto a excluir: ");
                     String nomeExcluir = scanner.nextLine();
                     ProdutoDAO.excluir(nomeExcluir);
+                }
+                case 6 -> {
+                    System.out.print("Nome do produto que você está produzindo: ");
+                    String nomeProduto = scanner.nextLine().trim();
+
+                    ArrayList<ItemProducao> itens = new ArrayList<>();
+                    boolean continuar = true;
+
+                    while (continuar) {
+                        System.out.print("Produto utilizado na produção (ou 'fim' para encerrar): ");
+                        String nomeItem = scanner.nextLine().trim();
+
+                        if (nomeItem.equalsIgnoreCase("fim")) {
+                            continuar = false;
+                        } else {
+                            double valorItem = -1;
+                            boolean valorValido = false;
+                            while (!valorValido) {
+                                System.out.print("Valor gasto em \"" + nomeItem + "\": ");
+                                String valorTexto = scanner.nextLine().trim().replace(",", ".");
+                                try {
+                                    valorItem = Double.parseDouble(valorTexto);
+                                    if (valorItem >= 0) {
+                                        valorValido = true;
+                                    } else {
+                                        System.out.println("Valor não pode ser negativo. Tente novamente.");
+                                    }
+                                } catch (NumberFormatException e) {
+                                    System.out.println("Digite um valor numérico válido.");
+                                }
+                            }
+                            itens.add(new ItemProducao(nomeItem, valorItem));
+                        }
+                    }
+
+                    if (itens.isEmpty()) {
+                        System.out.println("Nenhum item adicionado. Produção cancelada.");
+                    } else {
+                        int quantidadeProduzida = -1;
+                        boolean quantidadeValida = false;
+                        while (!quantidadeValida) {
+                            System.out.print("Quantas unidades de \"" + nomeProduto + "\" você produziu? ");
+                            if (scanner.hasNextInt()) {
+                                quantidadeProduzida = scanner.nextInt();
+                                if (quantidadeProduzida > 0) {
+                                    quantidadeValida = true;
+                                } else {
+                                    System.out.println("A quantidade precisa ser maior que zero. Tente novamente.");
+                                }
+                            } else {
+                                System.out.println("Digite um número inteiro válido.");
+                                scanner.next();
+                            }
+                        }
+                        scanner.nextLine();
+
+                        String dataAtual = java.time.LocalDate.now().toString();
+                        ProducaoDAO.salvarProducao(nomeProduto, itens, quantidadeProduzida, dataAtual);
+                    }
                 }
                 case 0 -> System.out.println("Saindo...");
                 default -> System.out.println("Opção inválida!");

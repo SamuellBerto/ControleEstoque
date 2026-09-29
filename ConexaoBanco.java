@@ -25,6 +25,7 @@ public class ConexaoBanco {
         String sqlProducoes = "CREATE TABLE IF NOT EXISTS producoes (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "nome_produto TEXT NOT NULL," +
+                "quantidade_produzida INTEGER NOT NULL," +
                 "custo_total REAL NOT NULL," +
                 "data TEXT NOT NULL" +
                 ");";
