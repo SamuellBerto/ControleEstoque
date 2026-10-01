@@ -52,4 +52,30 @@ public class ProducaoDAO {
             System.out.println("Erro ao salvar produção: " + e.getMessage());
         }
     }
+    public static void listarProducoes() {
+        String sql = "SELECT * FROM producoes ORDER BY data DESC";
+
+        try (Connection conexao =  ConexaoBanco.conectar();
+            PreparedStatement stmt =conexao.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery()) {
+            
+            boolean encontrouAlgum = false;
+            while (rs.next()) {
+                encontrouAlgum = true;
+                String nomeProduto = rs.getString("nome_produto");
+                int quantidadeProduzida = rs.getInt("quantidade_produzida");
+                double custoTotal = rs.getDouble("custo_total");
+                String data = rs.getString("data");
+                double custoPorUnidade = custoTotal / quantidadeProduzida;
+
+                System.out.printf("%n%s (produzido em %s)%n", nomeProduto, data);
+                System.out.printf("Quantidade: %d unidade(s) | Custo total: R$%.2f | Custo por unidade: R$%.2f%n", quantidadeProduzida, custoTotal, custoPorUnidade);
+            }
+            if (!encontrouAlgum) {
+                System.out.println("Nenhuma produção encontrada.");
+            }
+        } catch (SQLException e) {
+            System.out.println("Erro ao listar produções: " + e.getMessage());
+        }
+    }
 }

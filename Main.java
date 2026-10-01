@@ -20,6 +20,7 @@ public class Main {
             System.out.println("4 - Calcular valor total do estoque");
             System.out.println("5 - Excluir produto");
             System.out.println("6 - Calcular custo de produção");
+            System.out.println("7 - Ver histórico de produções");
             System.out.println("0 - Sair");
             System.out.print("Escolha uma opção: ");
 
@@ -218,6 +219,11 @@ public class Main {
                         ProducaoDAO.salvarProducao(nomeProduto, itens, quantidadeProduzida, dataAtual);
                     }
                 }
+                case 7 -> {
+                    System.out.println("\n--- Histórico de Produções ---");
+                    ProducaoDAO.listarProducoes();
+                }
+                
                 case 0 -> System.out.println("Saindo...");
                 default -> System.out.println("Opção inválida!");
             }
