@@ -32,12 +32,13 @@ public class ProducaoDAO {
                     producaoId = chavesGeradas.getInt(1);
                 }
 
-                String sqlItem = "INSERT INTO itens_producao (producao_id, nome_item, valor) VALUES (?, ?, ?)";
+                String sqlItem = "INSERT INTO itens_producao (producao_id, nome_item, proporcao, valor) VALUES (?, ?, ? , ?)";
                 try (PreparedStatement stmtItem = conexao.prepareStatement(sqlItem)) {
                     for (ItemProducao item : itens) {
                         stmtItem.setInt(1, producaoId);
                         stmtItem.setString(2, item.getNomeItem());
-                        stmtItem.setDouble(3, item.getValor());
+                        stmtItem.setString(3, item.getProporcao());
+                        stmtItem.setDouble(4, item.getValor());
                         stmtItem.executeUpdate();
                     }
                 }

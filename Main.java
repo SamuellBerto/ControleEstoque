@@ -156,16 +156,23 @@ public class Main {
                     boolean continuar = true;
 
                     while (continuar) {
-                        System.out.print("Produto utilizado na produção (ou 'fim' para encerrar): ");
-                        String nomeItem = scanner.nextLine().trim();
+                        System.out.println("\n1 - Adicionar ingrediente");
+                        System.out.println("2 - Finalizar e calcular");
+                        System.out.print("Escolha uma opção: ");
 
-                        if (nomeItem.equalsIgnoreCase("fim")) {
-                            continuar = false;
-                        } else {
+                        String opcaoSub = scanner.nextLine().trim();
+
+                        if (opcaoSub.equals("1")){
+                            System.out.print("Nome do ingrediente: ");
+                            String nomeItem = scanner.nextLine().trim();
+
+                            System.out.print("Quantidade/proporção usada (ex: 200g, 1L, 3 colheres): ");
+                            String proporcao = scanner.nextLine().trim();
+
                             double valorItem = -1;
                             boolean valorValido = false;
                             while (!valorValido) {
-                                System.out.print("Valor gasto em \"" + nomeItem + "\": ");
+                                System.out.print("Valor do ingrediente: ");
                                 String valorTexto = scanner.nextLine().trim().replace(",", ".");
                                 try {
                                     valorItem = Double.parseDouble(valorTexto);
@@ -178,7 +185,11 @@ public class Main {
                                     System.out.println("Digite um valor numérico válido.");
                                 }
                             }
-                            itens.add(new ItemProducao(nomeItem, valorItem));
+                            itens.add(new ItemProducao(nomeItem, proporcao, valorItem));
+                        } else if (opcaoSub.equals("2")) {
+                            continuar = false;
+                        } else {
+                            System.out.println("Opção inválida!");
                         }
                     }
 

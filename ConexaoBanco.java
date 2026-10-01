@@ -33,6 +33,7 @@ public class ConexaoBanco {
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "producao_id INTEGER NOT NULL," +
                 "nome_item TEXT NOT NULL," +
+                "proporcao TEXT," +
                 "valor REAL NOT NULL," +
                 "FOREIGN KEY (producao_id) REFERENCES producoes(id)" +
                 ")";
