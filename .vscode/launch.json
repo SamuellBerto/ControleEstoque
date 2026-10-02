@@ -1,0 +1,19 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "TesteJavaFX",
+            "request": "launch",
+            "mainClass": "TesteJavaFX",
+            "projectName": "ControleEstoque_9c07146d"
+        },
+        {
+            "type": "java",
+            "name": "Launch Main (JavaFX)",
+            "request": "launch",
+            "mainClass": "Main",
+            "vmArgs": "--module-path \"C:\\Users\\Jogador\\Desktop\\FACULDADE\\javafx-sdk-27\\lib\" --add-modules javafx.controls,javafx.fxml"
+        }
+    ]
+}
